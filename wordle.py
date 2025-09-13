@@ -6,22 +6,12 @@
 # Course: ICTPRG302
 # Lecturer: Rafael Avigad
 
-# TODO: Add Import statements (if needed)
 import random
 
 # Variables and Constants
-# TODO: Define Constants & Variables
 DEBUG = False
-
-
 target_words = "target_words.txt"
 guess_words = "all_words.txt"
-
-
-
-
-
-
 
 # Application Functions
 def random_target_word(word_list):
@@ -53,7 +43,7 @@ def display_score(score, guess_word):
     print(word_output)
             
 
-# TODO: Score Guess Function
+#Score Guess Function
 def score_guess(guess_word, target_word):
     """Determines the score of a users guess compared to the target
     Arguments
@@ -98,9 +88,7 @@ def score_guess(guess_word, target_word):
     return score_list
 
 
-
-
-# TODO: Read File Into Word List Function
+# Read File Into Word List Function
 def read_words_into_list(filename):
     list_of_words = []
 
@@ -110,7 +98,8 @@ def read_words_into_list(filename):
         
     return list_of_words
 
-# TODO: Display Greeting Function
+
+# Display Greeting Function
 def show_greeting():
     print("""
 Welcome to
@@ -129,8 +118,7 @@ Welcome to
     return player_name
 
 
-
-# TODO: Display Instructions Function
+#Display Instructions Function
 def show_instructions(player_name):
     show_instruction = input(f"Do you need the instructions {player_name}? ")
     if show_instruction.lower() in ('y', 'yes'):
@@ -161,7 +149,7 @@ Good Luck!""")
     else:
         print("Okay!\n")
 
-# TODO: Any Optional Additional Functions
+#Any Optional Additional Functions
 def play_again(answer):
     if answer.lower() in ("y" , "yes"):
         return True
@@ -169,14 +157,17 @@ def play_again(answer):
         return False
     
 
-
-# TODO: Play Game Function
+#Play Game Function
 def play_game():
+    #play again y/n loop
     play_again_bool = True
     
     player_name = show_greeting()
     show_instructions(player_name)
+
+    #main playagain loop
     while play_again_bool == True:
+
         target_list = read_words_into_list(target_words)
         target_word = random_target_word(target_list)
 
@@ -185,7 +176,7 @@ def play_game():
         max_attempts = 5
         attempts = 0
         
-
+        #validating input
         while attempts < max_attempts:
             guess_word = input("Guess The Word: \n")
 
@@ -195,55 +186,52 @@ def play_game():
             if guess_word.lower() not in guess_list:
                 print("Invalid word. Try again\n")
                 continue
-            
+
+            #show instructions
             if guess_word == "--help":
                 show_instructions(player_name)
-                
 
-        
             attempts += 1
 
+            #Last attempt warning
             print(f"Attempt Number: {attempts}/5")
             if attempts == 4:
                 print(f"Last attempt! Attempt Number: {attempts}/5")
-                
+
+            #Display Score
             score_list = score_guess(guess_word, target_word)
             display_score(score_list, guess_word)
             print("\n")
 
+            #If win
             if guess_word.lower() == target_word.lower():
                 print(f"You guessed the word!! {target_word}")
                 break
-
+        #Lose
         else:
             print(f"""Unlucky, the word was
       {target_word.upper()}""")
             
-
+        #playagain input
         answer = input("Play Again? y/n: \n")
         play_again_bool = play_again(answer)
+
+        #New word notif
         if play_again_bool == True:
             print("Generating new word...")
+    #If end
     print("Thanks, For Playing!")
         
         
-    
-    
-        
-        
-    
-
+#Testing
 def test_game():
-    # Test Case 2
-    ## Arrange
     guess_word = "heelo"
     target_word = "heelo"
     guess_word = input ("Guess The Word: \n")
-    ## Act
+
     score = score_guess(guess_word, target_word)
     display_score(score, guess_word)
 
-    ## Assert
     print("Score:", score, "Expected:", [2, 2, 2, 2, 2])
      
 # Main Program
