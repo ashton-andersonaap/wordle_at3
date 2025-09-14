@@ -122,7 +122,7 @@ Welcome to
 def show_instructions(player_name):
     show_instruction = input(f"Do you need the instructions {player_name}? ")
     if show_instruction.lower() in ('y', 'yes'):
-        print(r""""
+        print(r"""
 +===============================================================+
 |  _                                        _                   |
 | (_)           _                      _   (_)                  |
@@ -145,7 +145,7 @@ def show_instructions(player_name):
 If you do not guess the word in 5 tries it's game over!
 - Type --help at any time to see the instructions again.
 Good Luck!""")
-        input("Ready?")
+        input("Ready?\n")
     else:
         print("Okay!\n")
 
@@ -205,12 +205,12 @@ def play_game():
 
             #If win
             if guess_word.lower() == target_word.lower():
-                print(f"You guessed the word!! {target_word}")
+                print(f"You guessed the word!!\n {target_word.upper()}")
                 break
         #Lose
         else:
             print(f"""Unlucky, the word was
-      {target_word.upper()}""")
+      {target_word.upper()}\n""")
             
         #playagain input
         answer = input("Play Again? y/n: \n")
@@ -218,11 +218,11 @@ def play_game():
 
         #New word notif
         if play_again_bool == True:
-            print("Generating new word...")
+            print("Generating new word...\n")
     #If end
     print("Thanks, For Playing!")
         
-        
+
 #Testing
 def test_game():
     guess_word = "heelo"
