@@ -186,7 +186,7 @@ def play_game():
 
         max_attempts = 5
         attempts = 0
-        
+
 
         while attempts < max_attempts:
             guess_word = input("Guess The Word: \n")
@@ -215,6 +215,8 @@ def play_game():
             #If win
             if guess_word.lower() == target_word.lower():
                 print(f"You guessed the word!!\n {target_word.upper()}")
+                with open('Win_Log.txt','a') as f:
+                    f.write(f"{player_name} won in {attempts} attempt/s with the word {target_word}\n")
                 break
         #Lose
         else:
