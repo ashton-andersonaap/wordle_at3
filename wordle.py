@@ -202,9 +202,10 @@ def play_game():
             attempts += 1
 
             #Last attempt warning
-            print(f"Attempt Number: {attempts}/5")
-            if attempts == 4:
+            if attempts == (max_attempts -1):
                 print(f"Last attempt! Attempt Number: {attempts}/5")
+            else:
+                print(f"Attempt Number: {attempts}/5")
 
             #Display Score
             score_list = score_guess(guess_word, target_word)
