@@ -17,7 +17,7 @@ guess_words = "all_words.txt"
 def random_target_word(word_list):
     word_list_length = len(word_list)
 
-    random_num = random.randint(0 , word_list_length -1)
+    random_num = random.randint(0, word_list_length -1)
 
     return word_list[random_num]
 
@@ -155,7 +155,18 @@ def play_again(answer):
         return True
     else:
         return False
-    
+
+def validate_input(guess_word,guess_list):
+    if len(guess_word) != 5:
+        print("your guess must be 5 letters\n")
+        return False
+
+    if guess_word.lower() not in guess_list:
+        print("Invalid word. Try again\n")
+        return False
+
+    return True
+
 
 #Play Game Function
 def play_game():
@@ -176,20 +187,17 @@ def play_game():
         max_attempts = 5
         attempts = 0
         
-        #validating input
+
         while attempts < max_attempts:
             guess_word = input("Guess The Word: \n")
 
-            if len(guess_word)!= 5:
-                print("your guess must be 5 letters\n")
-                continue
-            if guess_word.lower() not in guess_list:
-                print("Invalid word. Try again\n")
-                continue
-
-            #show instructions
+            # show instructions
             if guess_word == "--help":
                 show_instructions(player_name)
+
+            if not validate_input(guess_word,guess_list):
+                continue
+
 
             attempts += 1
 
