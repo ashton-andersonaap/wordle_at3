@@ -166,7 +166,29 @@ def validate_input(guess_word,guess_list):
         return False
 
     return True
+def avg_attempts_from_log(filename="Win_Log.txt"):
+    attempts_list = []
 
+    try:
+        with open(filename, 'r') as f:
+            for line in f:
+                parts = line.split()
+                if "attempts in parts":
+                    idx = parts.index("attempt/s")
+                    try:
+                        attempts = int(parts[idx-1])
+                        attempts_list.append(attempts)
+                    except (ValueError, IndexError):
+                        continue
+
+            if attempts_list:
+                avg_attempts = sum(attempts_list) / len(attempts_list)
+                print(f"Average attempts per win: {avg_attempts}")
+            else:
+                print("No valid attempt data found in log.")
+
+    except FileNotFoundError:
+        print("log file not found")
 
 #Play Game Function
 def play_game():
@@ -198,7 +220,7 @@ def play_game():
             if not validate_input(guess_word,guess_list):
                 continue
 
-
+            print(target_word)
             attempts += 1
 
             #Last attempt warning
@@ -217,6 +239,7 @@ def play_game():
                 print(f"You guessed the word!!\n {target_word.upper()}")
                 with open('Win_Log.txt','a') as f:
                     f.write(f"{player_name} won in {attempts} attempt/s with the word {target_word}\n")
+                avg_attempts_from_log()
                 break
         #Lose
         else:
